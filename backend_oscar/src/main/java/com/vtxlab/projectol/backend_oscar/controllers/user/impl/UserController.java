@@ -157,16 +157,15 @@ public class UserController implements UserOperation {
   public UserDTO getUserByEventId(String eventId, HttpServletRequest request) {
     // Parse JWT token from request
     String jwt = parseJwt(request);
-    Long eventId = Long.valueOf(eventId);
     String targetName = ""; // Initialize targetName with a default value
     // Check if JWT token is valid and extract username
     if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
       targetName = jwtUtils.getUserNameFromJwtToken(jwt);
     }
     Optional<User> optionalUser =
-        userRepository.findByEventsIdAndUserName(eventId, targetName); //
+        userRepository.findByEventsIdAndUserName(Long.valueOf(eventId), targetName); //
 
-    Optional<Event> result = eventRepository.findById(eventId);
+    Optional<Event> result = eventRepository.findById(Long.valueOf(eventId));
     if (optionalUser.isPresent()) {
       UserDTO user = Mapper.map(optionalUser.get());
       user.setEvents(Mapper.map(result.get()));

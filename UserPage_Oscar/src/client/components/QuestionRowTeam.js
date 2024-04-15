@@ -1,21 +1,14 @@
-import React, {useContext, useEffect, useState} from 'react';
-import Editor from './Editor';
-import {Checkbox} from 'react-bootstrap';
-import TopNavBarTeam from './TopNavBarTeam';
-import {TeamContext} from "./App";
-import QuestionAreaTeam from "./QuestionAreaTeam";
-import {getEventQuestions} from "../api/EventQuestionApi";
-import {getQuestions, getQuestionsListByEventId} from "../api/QuestionApi";
-import {getEventGroups} from "../api/EventGroupApi";
-import {getGroupUsers} from "../api/GroupUserApi";
-import {getUserById} from "../api/UserApi";
+import React, { useEffect, useState } from 'react';
+import { getEventByid } from "../api/EventApi";
 import {
     addEventGroupUserQuestionHandle,
     getEventGroupUserQuestionHandle,
     putEventGroupUserQuestionHandle
 } from "../api/GroupQuestionHandleApi";
-import {getEventByid} from "../api/EventApi";
+import { getQuestionsListByEventId } from "../api/QuestionApi";
 import EditorTeam from "./EditorTeam";
+import QuestionAreaTeam from "./QuestionAreaTeam";
+import TopNavBarTeam from './TopNavBarTeam';
 
 function QuestionRowTeam() {
     const storedUser = JSON.parse(localStorage.getItem('loginUser'));

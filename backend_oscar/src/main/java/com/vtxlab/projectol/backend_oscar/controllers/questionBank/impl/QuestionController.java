@@ -249,9 +249,8 @@ public class QuestionController implements QuestionOperation {
   @Override
   public ResponseEntity<Set<QuestionBankDTO>> getQuestionByEventId(
       String eventId) {
-    Long eventId = Long.valueOf(eventId);
     Set<QuestionBankDTO> result =
-        questionRepository.findByEventsId(eventId).stream()//
+        questionRepository.findByEventsId(Long.valueOf(eventId)).stream()//
             .map(e -> Mapper.map(e))//
             .collect(Collectors.toSet());
     return new ResponseEntity<>(result, HttpStatus.OK);
