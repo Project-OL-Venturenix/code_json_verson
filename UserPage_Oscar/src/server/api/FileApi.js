@@ -76,7 +76,7 @@ module.exports = {
           console.log(`Question${questionId}.java file created with Java code.`);
           fs.readFile(file, (err, data) => {
             if (err) throw err;
-            console.log(data.toString());
+            console.log('data.toString() : ' + data.toString());
             callback(data.toString());
           });
         });

@@ -37,7 +37,7 @@ export default function TopNavBarTeam() {
             const eventGroups = response.data.users;
             console.log(eventGroups);
             //
-            // const selectedEventGroups = eventGroups.filter(group => group.eventid === parseInt(selectedEventId, 10));
+            // const selectedEventGroups = eventGroups.filter(group => group.eventId === parseInt(selectedEventId, 10));
             // console.log("Selected Event ID:", parseInt(selectedEventId, 10));
             // console.log("Filtered groups:", selectedEventGroups);
             //

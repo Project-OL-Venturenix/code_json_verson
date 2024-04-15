@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import QuestionAreaIndividual from './QuestionAreaIndividual';
 import Editor from './Editor';
 import TopNavBar from './TopNavBar';
-import {getQuestions, getQuestionsList} from "../api/QuestionApi";
+import {getQuestions, getQuestionsListByEventId} from "../api/QuestionApi";
 import {getEventQuestions} from "../api/EventQuestionApi";
 import {getEventByid} from "../api/EventApi";
 import {getEventUser} from "../api/EventUserApi";
@@ -15,7 +15,7 @@ function QuestionRowIndividual() {
 
     const getEventQuestionList = async () => {
         try {
-            const response = await getQuestionsList(loginUser.accessToken, selectedEventId)
+            const response = await getQuestionsListByEventId(loginUser.accessToken, selectedEventId)
             setEventQuestionList(response.data);
             console.log(response)
         } catch (error) {
