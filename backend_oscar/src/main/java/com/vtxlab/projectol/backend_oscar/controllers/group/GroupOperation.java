@@ -28,14 +28,14 @@ public interface GroupOperation {
   @GetMapping("/groups")
   ResponseEntity<List<GroupDTO>> getAllGroups();
 
-  @GetMapping("/groups/{eventid}")
+  @GetMapping("/groups/{eventId}")
   @ResponseStatus(HttpStatus.OK)
-  GroupUserDTO getGroupById(@PathVariable String eventid,
+  GroupUserDTO getGroupById(@PathVariable String eventId,
       HttpServletRequest request);
 
-  @GetMapping("/groups/eventid/{eventid}")
+  @GetMapping("/groups/eventId/{eventId}")
   @ResponseStatus(HttpStatus.OK)
-  GroupScoreDTO getGroupScoreByEventId(@PathVariable String eventid);
+  GroupScoreDTO getGroupScoreByEventId(@PathVariable String eventId);
 
   @PutMapping("/groups/{id}")
   ResponseEntity<Group> updateGroup(@PathVariable("id") long id,

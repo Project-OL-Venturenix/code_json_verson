@@ -50,12 +50,12 @@ public class UserScoreServiceImpl implements UserScoreService {
 
 
   @Override
-  public boolean addScore(Long eventid, Long userid, Long questionid,
+  public boolean addScore(Long eventId, Long userid, Long questionid,
                           Integer testcasePass, SubmitTimeRunTimeDTO submitTimeRunTimeDTO) {
     Optional<UserScore> builder = userscoreRepository
-            .findByEventIdAndUserIdAndQuestionId(eventid, userid, questionid);
+            .findByEventIdAndUserIdAndQuestionId(eventId, userid, questionid);
     if (!builder.isPresent()) {
-      Optional<Event> event = eventRepository.findById(eventid);
+      Optional<Event> event = eventRepository.findById(eventId);
       Optional<User> user = userRepository.findById(userid);
       Optional<QuestionBank> question = questionRepository.findById(questionid);
 

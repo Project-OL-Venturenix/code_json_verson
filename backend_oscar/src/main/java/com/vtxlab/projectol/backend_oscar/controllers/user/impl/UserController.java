@@ -152,12 +152,12 @@ public class UserController implements UserOperation {
   }
 
   @Override
-  // public ResponseEntity<User> getUserByEventId(String eventid,
+  // public ResponseEntity<User> getUserByEventId(String eventId,
   // String jwt)
-  public UserDTO getUserByEventId(String eventid, HttpServletRequest request) {
+  public UserDTO getUserByEventId(String eventId, HttpServletRequest request) {
     // Parse JWT token from request
     String jwt = parseJwt(request);
-    Long eventId = Long.valueOf(eventid);
+    Long eventId = Long.valueOf(eventId);
     String targetName = ""; // Initialize targetName with a default value
     // Check if JWT token is valid and extract username
     if (jwt != null && jwtUtils.validateJwtToken(jwt)) {

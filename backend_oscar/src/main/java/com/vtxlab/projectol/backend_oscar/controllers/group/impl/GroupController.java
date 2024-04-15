@@ -150,8 +150,8 @@ public class GroupController implements GroupOperation {
   }
 
   @Override
-  public GroupScoreDTO getGroupScoreByEventId(String eventid) {
-    Long eventIdLong = Long.valueOf(eventid);
+  public GroupScoreDTO getGroupScoreByEventId(String eventId) {
+    Long eventIdLong = Long.valueOf(eventId);
     List<UserScore> userScores = userscoreRepository.findByEventId(eventIdLong);
     Map<Long, GroupScoreDTO.GroupResult> groupResultMap = new HashMap<>();
 
@@ -230,7 +230,7 @@ public class GroupController implements GroupOperation {
   }
 
   @Override
-  public GroupUserDTO getGroupById(String eventid, HttpServletRequest request) {
+  public GroupUserDTO getGroupById(String eventId, HttpServletRequest request) {
     String jwt = parseJwt(request);
     // Check if JWT token is valid and extract username
     String userName = null;
@@ -241,7 +241,7 @@ public class GroupController implements GroupOperation {
     // Find the user by username
     Optional<User> optionalUser = userRepository.findByUserName(userName);
     Optional<Event> optionalEvent =
-        eventRepository.findById(Long.valueOf(eventid));
+        eventRepository.findById(Long.valueOf(eventId));
     if (optionalUser.isPresent() && optionalEvent.isPresent()) {
       User user = optionalUser.get();
       Event event = optionalEvent.get();

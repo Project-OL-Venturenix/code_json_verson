@@ -30,9 +30,9 @@ public interface QuestionOperation {
         public ResponseEntity<QuestionResponse> generateQuestionById(
                         @PathVariable String id);
 
-        @GetMapping("/questions/event/{eventid}")
+        @GetMapping("/questions/event/{eventId}")
         public ResponseEntity<Set<QuestionBankDTO>> getQuestionByEventId(
-                        @PathVariable String eventid);
+                        @PathVariable String eventId);
 
         @PatchMapping("/addEventQuestion/event/{eventId}/question/{questionId}")
         public ResponseEntity<?> addQuestionInEvent(//

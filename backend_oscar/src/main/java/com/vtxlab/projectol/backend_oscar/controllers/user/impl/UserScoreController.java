@@ -81,9 +81,9 @@ public class UserScoreController implements UserScoreOperation {
   }
 
   @Override
-  public boolean addScore(String eventid, String userid, String questionid,
+  public boolean addScore(String eventId, String userid, String questionid,
       String testcasePassTotal, SubmitTimeRunTimeDTO submitTimeRunTimeDTO) {
-    Long eventID = Long.valueOf(eventid);
+    Long eventID = Long.valueOf(eventId);
     Long userID = Long.valueOf(userid);
     Long questionID = Long.valueOf(questionid);
     Integer testcasePass = Integer.valueOf(testcasePassTotal);
@@ -94,8 +94,8 @@ public class UserScoreController implements UserScoreOperation {
 
   @Override
   public ResponseEntity<UserScoreResult> getUserTestCaseByEventId(
-      String eventid) {
-    Long eventId = Long.valueOf(eventid);
+      String eventId) {
+    Long eventId = Long.valueOf(eventId);
     UserScoreResult userScoreDTO =
         userScoreService.getUserTestCaseByEventId(eventId);
     return ResponseEntity.ok(userScoreDTO);

@@ -22,15 +22,15 @@ public interface UserOperation {
       @RequestParam("userId") Long userId, //
       @RequestParam("eventId") Long eventId);
 
-  // @GetMapping("/usertestcases/eventid/{eventid}")
+  // @GetMapping("/usertestcases/eventId/{eventId}")
   // ResponseEntity<UserScoreResult> getUserTestCaseByEventId(
-  // @PathVariable String eventid);
+  // @PathVariable String eventId);
 
-  @GetMapping("/user/eventid/{eventid}")
+  @GetMapping("/user/eventId/{eventId}")
   @ResponseStatus(HttpStatus.OK)
-  UserDTO getUserByEventId(@PathVariable String eventid,
+  UserDTO getUserByEventId(@PathVariable String eventId,
       HttpServletRequest request);
-  // ResponseEntity<User> getUserByEventId(@PathVariable String eventid,String jwt);
+  // ResponseEntity<User> getUserByEventId(@PathVariable String eventId,String jwt);
 
   @GetMapping("/users")
   ResponseEntity<List<UserDTO>> getAllUsers();

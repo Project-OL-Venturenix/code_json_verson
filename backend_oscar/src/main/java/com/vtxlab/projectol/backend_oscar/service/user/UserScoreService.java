@@ -8,7 +8,7 @@ import com.vtxlab.projectol.backend_oscar.payload.response.user.UserScoreResult;
 
 public interface UserScoreService {
 
-    boolean addScore(Long eventid, //
+    boolean addScore(Long eventId, //
             Long userid, //
             Long questionid, //
             Integer testcasePass,

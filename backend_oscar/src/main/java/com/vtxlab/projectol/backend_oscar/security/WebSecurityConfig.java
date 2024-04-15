@@ -93,7 +93,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
             .requestMatchers("/api/events/**").permitAll()
             .requestMatchers("/api/eventgroups/**").permitAll()
             .requestMatchers("/api/eventquestions/**").permitAll()
-            .requestMatchers("/api/eventusers/**").permitAll()
+            .requestMatchers("/api/eventUsers/**").permitAll()
             .requestMatchers("/api/groups/**").permitAll()
             .requestMatchers("/api/groupquestionsubmits/**").permitAll()
             .requestMatchers("/api/groupscores/**").permitAll()
