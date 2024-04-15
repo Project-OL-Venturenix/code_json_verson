@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "./config";
-
+import DevConfig from "./DevConfig";
+const baseUrl = DevConfig.baseUrl;
 export const putUserTestCase = async (accessToken, userTestCaseData)=> {
     try {
         const response = await axios.post(
-            `${BASE_URL}/api/usertestcases`,
+            `${baseUrl}/api/usertestcases`,
             userTestCaseData,
             {headers: {Authorization: `Bearer ${accessToken}`}}
         );
@@ -18,7 +18,7 @@ export const putUserTestCase = async (accessToken, userTestCaseData)=> {
 export const getUserTestCase = async (accessToken)=> {
     try {
         const response = await axios.get(
-            `${BASE_URL}/api/usertestcases`,
+            `${baseUrl}/api/usertestcases`,
             {headers: {Authorization: `Bearer ${accessToken}`}}
         );
         return response;

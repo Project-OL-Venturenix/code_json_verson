@@ -5,21 +5,21 @@ class CompilerApi {
     return { 'Content-Type': 'application/json' };
   }
 
-  static getTask(lang) {
+  static getTask(lang, questionId) {
     return HttpHelper.fetch(
-      `${process.env.API_URL}/api/file/${lang}`,
+      `${process.env.API_URL}/api/file/${lang}/${questionId}`,
       'GET',
       this.requestHeaders(),
-      null
+      null,
     );
   }
 
-  static run(answer) {
+  static run(answer, questionId) {
     return HttpHelper.fetch(
-      `${process.env.API_URL}/api/run/`,
+      `${process.env.API_URL}/api/run/${questionId}`,
       'POST',
       this.requestHeaders(),
-      JSON.stringify(answer)
+      JSON.stringify(answer),
     );
   }
 }

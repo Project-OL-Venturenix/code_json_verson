@@ -80,6 +80,10 @@ const SignupPage = () => {
         }
     };
 
+    const handleBack = async () => {
+                window.location.href = '/';
+    };
+
     return (
         <div className="container"
              style={{
@@ -201,7 +205,9 @@ const SignupPage = () => {
                                 <button type="button" className="btn btn-primary" onClick={handleSubmit}>
                                     Signup
                                 </button>
-
+                                <button type="button" className="btn btn-primary" style={{marginLeft:'20px'}} onClick={handleBack}>
+                                    Back
+                                </button>
                             </form>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "./config";
-
+import DevConfig from "./DevConfig";
+const baseUrl = DevConfig.baseUrl;
 export const getEventUsers = async (accessToken)=> {
     try {
         const response = await axios.get(
-            `${BASE_URL}/api/eventusers`,
+            `${baseUrl}/api/eventusers`,
             {headers: {Authorization: `Bearer ${accessToken}`}}
         );
         return response;
@@ -17,7 +17,7 @@ export const getEventUsers = async (accessToken)=> {
 export const getEventUser = async (accessToken,eventid)=> {
     try {
         const response = await axios.get(
-            `${BASE_URL}/api/user/eventid/${eventid}`,
+            `${baseUrl}/api/user/eventid/${eventid}`,
             {headers: {Authorization: `Bearer ${accessToken}`}}
         );
         return response;

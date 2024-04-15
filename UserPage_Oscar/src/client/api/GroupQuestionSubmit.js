@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "./config";
-
+import DevConfig from "./DevConfig";
+const baseUrl = DevConfig.baseUrl;
 export const putGroupQuestionSubmit = async (accessToken, groupQuestionData)=> {
     try {
         const response = await axios.post(
-            `${BASE_URL}/api/groupquestionsubmits`,
+            `${baseUrl}/api/groupquestionsubmits`,
             groupQuestionData,
             {headers: {Authorization: `Bearer ${accessToken}`}}
         );
@@ -18,7 +18,7 @@ export const putGroupQuestionSubmit = async (accessToken, groupQuestionData)=> {
 export const getGroupQuestionSubmit = async (accessToken)=> {
     try {
         const response = await axios.get(
-            `${BASE_URL}/api/groupquestionsubmits`,
+            `${baseUrl}/api/groupquestionsubmits`,
             {headers: {Authorization: `Bearer ${accessToken}`}}
         );
         return response;

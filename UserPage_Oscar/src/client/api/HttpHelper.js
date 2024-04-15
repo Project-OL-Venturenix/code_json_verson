@@ -13,7 +13,7 @@ class HttpHelper {
     return fetch(request)
       .then((response) => {
         // console.log(response);
-        if (response.status >= 200 && response.status < 400) {
+        if (response.status >= 200 && response.status < 300) {
           return response.json();
         }
         const error = new Error(`${response.statusText}(${response.status}), URL: ${response.url}`);

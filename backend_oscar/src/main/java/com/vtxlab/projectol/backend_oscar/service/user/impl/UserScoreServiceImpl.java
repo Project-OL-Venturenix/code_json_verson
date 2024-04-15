@@ -1,5 +1,6 @@
 package com.vtxlab.projectol.backend_oscar.service.user.impl;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,36 +51,40 @@ public class UserScoreServiceImpl implements UserScoreService {
 
   @Override
   public boolean addScore(Long eventid, Long userid, Long questionid,
-      Integer testcasePass, SubmitTimeRunTimeDTO submitTimeRunTimeDTO) {
+                          Integer testcasePass, SubmitTimeRunTimeDTO submitTimeRunTimeDTO) {
     Optional<UserScore> builder = userscoreRepository
-        .findByEventIdAndUserIdAndQuestionId(eventid, userid, questionid);
+            .findByEventIdAndUserIdAndQuestionId(eventid, userid, questionid);
     if (!builder.isPresent()) {
       Optional<Event> event = eventRepository.findById(eventid);
       Optional<User> user = userRepository.findById(userid);
       Optional<QuestionBank> question = questionRepository.findById(questionid);
 
       if (event.isPresent() && user.isPresent() && question.isPresent()) {
+        LocalDateTime submissionTime = LocalDateTime.now();
+        LocalDateTime targetStartTime = event.get().getTargetStartTime();
+
+        long minutesDifference = Duration.between(targetStartTime, submissionTime).toMinutes();
+
+        boolean isWithin30Minutes = minutesDifference >= 0 && minutesDifference < 30;
+
         userscoreRepository.saveAndFlush(UserScore.builder().event(event.get())
-            .user(user.get()).question(question.get())//
-            .resultOfPassingTestecase(testcasePass)//
-            .status(testcasePass == 10 ? "Pass All Test Cases" : "Fail")//
-            .submitTime(submitTimeRunTimeDTO.getSubmitTime())//
-            .runtimebyMsec(submitTimeRunTimeDTO.getRunTimeByMsec())//
-            .bonusUnder30Mins(event.get().getTargetStartTime().getMinute()
-                - submitTimeRunTimeDTO.getSubmitTime().getMinute() < 30
-                && testcasePass == 10 ? "1" : "0")//
-            .bonusWithinQuestionRuntime(question.get()
-                .getBonusRuntime() > submitTimeRunTimeDTO.getRunTimeByMsec()
-                && testcasePass == 10 ? "1" : "0")//
-            .createdDate(LocalDateTime.now()).updatedDate(LocalDateTime.now())
-            .build());
+                .user(user.get()).question(question.get())
+                .resultOfPassingTestecase(testcasePass)
+                .status(testcasePass == 10 ? "Pass All Test Cases" : "Fail")
+                .submitTime(submissionTime)
+                .runtimebyMsec(submitTimeRunTimeDTO.getRunTimeByMsec())
+                .bonusUnder30Mins(isWithin30Minutes && testcasePass == 10 ? "1" : "0")
+                .bonusWithinQuestionRuntime(
+                        question.get().getBonusRuntime() > submitTimeRunTimeDTO.getRunTimeByMsec() && testcasePass == 10 ? "1" : "0")
+                .createdDate(LocalDateTime.now()).updatedDate(LocalDateTime.now())
+                .build());
         return true;
       } else {
         return false;
       }
     } else {
       builder.get().setResultOfPassingTestecase(testcasePass);
-      builder.get().setSubmitTime(submitTimeRunTimeDTO.getSubmitTime());
+      builder.get().setSubmitTime(LocalDateTime.now());
       builder.get().setRuntimebyMsec(submitTimeRunTimeDTO.getRunTimeByMsec());
       userscoreRepository.save(builder.get());
       return true;

@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "./config";
-
+import DevConfig from "./DevConfig";
+const baseUrl = DevConfig.baseUrl;
 export const getGroupUsers = async (accessToken, eventId) => {
     try {
         const response = await axios.get(
-            `${BASE_URL}/api/groups/${eventId}`,
+            `${baseUrl}/api/groups/${eventId}`,
             {headers: {Authorization: `Bearer ${accessToken}`}}
         );
         return response;

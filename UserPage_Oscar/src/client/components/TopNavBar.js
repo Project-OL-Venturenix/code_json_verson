@@ -1,10 +1,14 @@
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
-import { Navbar } from 'react-bootstrap';
-import { Redirect } from "react-router-dom";
-import { getEventByid } from "../api/EventApi";
-import { getEventUser } from "../api/EventUserApi";
+import React, {useContext, useEffect, useState} from 'react';
+import {Navbar} from 'react-bootstrap';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCircleUser} from '@fortawesome/free-solid-svg-icons';
+import {getEventQuestions} from "../api/EventQuestionApi";
+import {getQuestions} from "../api/QuestionApi";
+import {getEventUser, getEventUsers} from "../api/EventUserApi";
+import {getUsers} from "../api/UserApi";
+import {getEventByid, getEvents} from "../api/EventApi";
+import {signInUser} from "../api/AuthApi";
+import {Redirect} from "react-router-dom";
 import CountdownTimer from "./Timer";
 
 export default function TopNavBar() {
@@ -19,7 +23,7 @@ export default function TopNavBar() {
     const getEventUserList = async () => {
         try {
             await getEventById(selectedEventId);
-            const response = await getEventUser(loginUser.accessToken, selectedEventId)
+            const response = await getEventUser(loginUser.accessToken,selectedEventId)
             console.log(response.data)
             setEventUserList(response.data);
         } catch (error) {
@@ -52,7 +56,7 @@ export default function TopNavBar() {
     };
 
     if (redirectToNext) {
-        return <Redirect to="/login" />;
+        return <Redirect to="/login"/>;
     }
 
     const handleDashboard = () => {
@@ -66,7 +70,7 @@ export default function TopNavBar() {
     };
 
     if (redirectToDash) {
-        return <Redirect to="/ranking" />;
+        return <Redirect to="/ranking"/>;
     }
 
 
@@ -87,11 +91,11 @@ export default function TopNavBar() {
                 }}
             >
 
-                <div style={{ display: 'flex', fontSize: "30px" }}>{eventName}</div>
+                <div style={{display: 'flex', fontSize: "30px"}}>{eventName}</div>
 
-                <div />
+                <div/>
                 <div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
                         <FontAwesomeIcon
                             icon={faCircleUser}
                             style={{
@@ -102,18 +106,18 @@ export default function TopNavBar() {
                         />
                         {loginUser && (
                             <div>
-                                <span style={{ fontSize: '3em' }}>
+                                    <span style={{fontSize: '3em'}}>
                                     {eventUserList.firstName || "You are not in this content"}
-                                </span>
+                                    </span>
                             </div>
                         )}
                     </div>
                 </div>
-                <CountdownTimer />
+                <CountdownTimer/>
 
                 <div>
                     <button
-                        style={{ backgroundColor: '#198754' }}
+                        style={{backgroundColor: '#198754'}}
                         type="button"
                         className="btn btn-primary btn-lg"
                         onClick={handleDashboard}

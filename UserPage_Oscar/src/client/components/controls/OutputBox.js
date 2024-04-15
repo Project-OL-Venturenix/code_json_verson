@@ -19,14 +19,14 @@ class OutputBox extends React.Component {
     let messageText;
 
     if (counter !== 'N/A') {
-        if (counter == 9) {
-          if (executionTime <= question.targetCompleteTime) {
-            messageText = ` Test Case Pass: ${counter} / 9 \n You pass all the test cases! \n You got 3 marks! \n You pass the run time! \n You got 1 bonus mark!` ;
+        if (counter == 10) {
+          if (executionTime <= question.bonusRuntime) {
+            messageText = ` Test Case Pass: ${counter} / 10 \n Congratulations! You've passed all the test cases with flying colors! \n You've earned 3 marks! \n Furthermore, your algorithm met the required runtime. \n Outstanding job! You've earned an additional bonus mark!` ;
           } else {
-            messageText = ` Test Case Pass: ${counter} / 9 \n You pass all the test cases! \n You got 3 marks! \n However, you do not pass the run time! \n Pleases improve your algorithm` ;
+            messageText = ` Test Case Pass: ${counter} / 10 \n You have successfully passed all the test cases! \n You've earned 3 marks! \n However, your algorithm did not meet the required runtime. \n Please work on optimizing it.` ;
           }
         } else {
-          messageText = `Test Case Pass: ${counter} / 9 \n  You fail the test cases, \n You do not have any marks`;
+          messageText = `Test Case Pass: ${counter} / 10 \n Unfortunately, you have not passed the required test cases. \n As a result, you did not receive any marks. \n Please consider revising and trying again.` ;
         }
     }
 

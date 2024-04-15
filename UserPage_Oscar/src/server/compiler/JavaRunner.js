@@ -2,9 +2,10 @@ const { spawn } = require('child_process');
 const Runner = require('./Runner');
 
 class JavaRunner extends Runner {
-  constructor() {
+  constructor(questionId) {
     super();
-    this.defaultfile = 'Question1.java'; //need to call API to get Question file
+    this.defaultfile = `Question${questionId}.java`; // 使用 questionId 构建默认文件名
+    this.questionId = questionId;
   }
 
   defaultFile() {
@@ -53,7 +54,7 @@ class JavaRunner extends Runner {
     executor.on('close', (output) => {
       this.log(`stdout: ${output}`);
 
-
+   
     });
   }
 

@@ -7,7 +7,7 @@ const JavaScriptRunner = require('./JavaScriptRunner');
 const PythonRunner = require('./PythonRunner');
 
 function Factory() {
-  this.createRunner = function createRunner(lang) {
+  this.createRunner = function createRunner(lang, questionId) {
     let runner;
 
     if (lang === 'c') {
@@ -15,7 +15,7 @@ function Factory() {
     } else if (lang === 'c++') {
       runner = new CppRunner();
     } else if (lang === 'java') {
-      runner = new JavaRunner();
+      runner = new JavaRunner(questionId);
     } else if (lang === 'javascript') {
       runner = new JavaScriptRunner();
     } else if (lang === 'python') {
@@ -27,12 +27,12 @@ function Factory() {
 }
 
 module.exports = {
-  run(lang, code, res) {
-    const factory = new Factory();
-    const runner = factory.createRunner(lang.toLowerCase());
+  run(lang, code, res, questionId) {
+    const factory = new Factory(questionId);
+    const runner = factory.createRunner(lang.toLowerCase(),questionId);
 
     const directory = path.join(__dirname, 'temp');
-    const file = path.join(directory, runner.defaultFile());//question file
+    const file = path.join(directory, runner.defaultFile(questionId));//question file
 
     const filename = path.parse(file).name; // main
     const extension = path.parse(file).ext; // .java
@@ -40,7 +40,7 @@ module.exports = {
     console.log(`frontend_Lucas_extension: ${extension}`);
 
     console.log('before saveFile');
-    FileApi.saveFile(file, code, () => {
+    FileApi.saveFile(file, code, questionId,() => {
       runner.run(file, directory, filename, extension, (status, message) => {
         const result = {
           status,

@@ -1,17 +1,19 @@
-import mkdirp from 'mkdirp';
-import path from 'path';
-import fs from 'fs';
+const fs = require('fs');
+const path = require('path');
+const mkdirp = require('mkdirp');
 
+let question;
 module.exports = {
-  saveFile(file, data, callback, questionId) {
+
+  saveFile(file, data, questionId, callback) {
     mkdirp(path.dirname(file), (err) => {
       if (err) return callback(err);
 
       const jsonData = data;
-      console.log('generate file data' + data);
       const jsonDataWithoutClosingBrace = jsonData.replace(/\}\s*$/, '');
       //add mainmethod
-      const jsonFile = path.join(__dirname, `../templates/Question${questionId}`, `Question${questionId}.json`);
+      const jsonFile = path.join(__dirname, '../templates', `Question${questionId}.json`);
+      question = questionId;
       fs.readFile(jsonFile, 'utf8', (err, data) => {
         if (err) throw err;
         let mainMethodData;
@@ -37,9 +39,9 @@ module.exports = {
       });
     });
   },
-  
-    startConvertJsonToJava(questionId , callback) {
-    const jsonFile = path.join(__dirname, `../templates/Question${questionId}`, `Question${questionId}.json`);
+  //question part 
+  startConvertJsonToJava( questionId, callback) {
+    const jsonFile = path.join(__dirname, '../templates', `Question${questionId}.json`);
     fs.readFile(jsonFile, 'utf8', (err, data) => {
       if (err) throw err;
       let jsonData;
@@ -60,15 +62,15 @@ module.exports = {
     });
   },
 
-  getFile(lang, callback, questionId) {
+  getFile(lang, questionId, callback) {
     let file = '';
     const language = lang.toLowerCase();
     if (language === 'java') {
-      file = path.join(__dirname, `../templates/Question${questionId}`, `Question${questionId}.json`);
+      file = path.join(__dirname, '../templates', `Question${questionId}.java`);
       if (!fs.existsSync(file)) {
         fs.writeFileSync(file, '');
       }
-      this.startConvertJsonToJava((javaCode) => {
+      this.startConvertJsonToJava( questionId, (javaCode) => {
         fs.writeFile(file, javaCode, (err) => {
           if (err) throw err;
           console.log(`Question${questionId}.java file created with Java code.`);
@@ -78,7 +80,7 @@ module.exports = {
             callback(data.toString());
           });
         });
-      }, questionId);
+      });
     } else if (language === 'c') {
       file = path.join(__dirname, '../templates', 'Hello.c');
     } else if (language === 'c++') {

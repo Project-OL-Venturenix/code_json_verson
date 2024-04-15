@@ -23,6 +23,6 @@ module.exports = class JavaRunner {
   }
 
   defaultFile() {
-    return 'Question1.java';
+    return 'Question3.java';
   }
 };

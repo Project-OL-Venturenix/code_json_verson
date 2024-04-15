@@ -38,10 +38,11 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Hello! welcome to our api!' });
 });
 
-app.get('/api/file/:lang', (req, res) => {
+app.get('/api/file/:lang/:questionId', (req, res) => {
   const language = req.params.lang;
+  const { questionId } = req.params;
   console.log(language);
-  FileApi.getFile(language, (content) => {
+  FileApi.getFile(language, questionId, (content) => {
     const file = {
       lang: language,
       code: content,
@@ -50,9 +51,10 @@ app.get('/api/file/:lang', (req, res) => {
   });
 });
 
-app.post('/api/run', (req, res) => {
+app.post('/api/run/:questionId', (req, res) => {
+  const { questionId } = req.params;
   const file = req.body;
-  console.log(`file.lang: ${file.lang}`, `file.code:${file.code}`);
-  RunnerManager.run(file.lang, file.code, res);
+  console.log(`file.lang: ${file.lang}`, `file.code:${file.code}`, `questionId: ${questionId}`);
+  RunnerManager.run(file.lang, file.code, res, questionId);
 });
 app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
